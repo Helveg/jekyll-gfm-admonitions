@@ -77,7 +77,7 @@ module JekyllGFMAdmonitions
         "<div class='markdown-alert markdown-alert-#{type}'>
           <p class='markdown-alert-title'>#{icon} #{title}</p>
           <p>#{@markdown.convert(text)}</p>
-        </div>"
+        </div>\n\n"
       end
     end
   end
