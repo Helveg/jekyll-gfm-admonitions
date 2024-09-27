@@ -32,7 +32,7 @@
     border-left-color: #4493f8;
 }
 
-.markdown-body .markdown-alert.markdown-alert-note svg path {
+.markdown-body .markdown-alert.markdown-alert-note .markdown-alert-title {
     color: #4493f8;
 }
 
