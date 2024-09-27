@@ -1,5 +1,7 @@
 ---
+
 permalink: /index.html
+
 ---
 
 # GitHub Flavored Admonitions
@@ -24,35 +26,35 @@ To use admonitions in your markdown files, simply add the following syntax:
 
 ```markdown
 > [!IMPORTANT]
-> This is an important message.
+> This is an **important** message.
 
 > [!NOTE]
-> This is a note.
+> This is a **note**.
 
 > [!TIP]
-> This is a helpful tip.
+> This is a **helpful** tip.
 
 > [!WARNING]
-> This is a warning.
+> This is a **warning**.
 
 > [!CAUTION]
-> This is a caution message.
+> This is a **caution** message.
 ```
 
 > [!IMPORTANT]
-> This is an important message.
+> This is an **important** message.
 
 > [!NOTE]
-> This is a note.
+> This is a **note**.
 
 > [!TIP]
-> This is a helpful tip.
+> This is a **helpful** tip.
 
 > [!WARNING]
-> This is a warning.
+> This is a **warning**.
 
 > [!CAUTION]
-> This is a caution message.
+> This is a **caution** message.
 
 ## Installation
 
@@ -64,7 +66,7 @@ group :jekyll_plugins do
    # Other plugins go here ...
    
    # ... Add this line:
-   gem "jekyll-gfm-admonitions"
+   gem "jekyll-gfm-admonitions", "~> 1.0.0"
 end
 ```
 
@@ -146,7 +148,7 @@ source 'https://rubygems.org'
  
 gem 'jekyll'
 group :jekyll_plugins do
-  gem 'jekyll-gfm-admonitions', '~> 0.2.1'
+  gem 'jekyll-gfm-admonitions', '~> 1.0.0'
   gem 'github-pages'
 end
 gem 'jekyll-remote-theme'
