@@ -1,0 +1,11 @@
+title: GitHub Flavored Admonitions
+repository: helveg/jekyll-gfm-admonitions
+description: >-
+  Add GitHub Flavored Admonitions to your Jekyll or GitHub Pages project!
+
+markdown: GFM
+plugins:
+  - jekyll-gfm-admonitions
+
+exclude:
+  - sample/
