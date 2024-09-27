@@ -46,8 +46,8 @@ module JekyllGFMAdmonitions
       site.pages.each do |page|
         # Patch the root README for GitHub Pages builds
         if page.path == 'README.md' && page.dir == '/'
-          # Set the permalink to /index.html
-          page.data['permalink'] ||= '/index.html'
+          Jekyll.logger.info 'GFMA:', "Patched /README.html to /index.html"
+          page.instance_variable_set(:@url, '/index.html')
         end
         Jekyll.logger.debug 'GFMA:', "Processing page '#{page.path}' (#{page.content.length} characters)."
         process(page)
