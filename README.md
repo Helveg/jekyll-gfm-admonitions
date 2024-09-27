@@ -163,6 +163,15 @@ Make sure that all your `.md` files begin with a valid front matter header:
 Your markdown files should start like this.
 ```
 
+> [!IMPORTANT]
+> 
+> Your root `README.md` front matter should contain a `permalink` attribute:
+> ```yaml
+> permalink: /index.html
+> ```
+
+Link to nested [README](./lib/README.md)
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE.txt](LICENSE.txt) file
