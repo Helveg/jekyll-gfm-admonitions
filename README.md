@@ -92,66 +92,59 @@ Actions (GHA) to build and deploy your Jekyll site. For detailed instructions on
 up GitHub Actions for your Jekyll project, please follow this link: 
 [GitHub Actions Setup for Jekyll](https://jekyllrb.com/docs/continuous-integration/github-actions/).
 
+After following the steps you will have to set up a minimal valid Jekyll project.
 
-> [!CAUTION]
-> This is a caution message.
+### Add a `_config.yml`
 
+```yaml
+# Site settings
+title: YouProjectName
+repository: your-username/your-repository
+description: >-
+  A description of your project
 
-> [!CAUTION]
-> 
-> This is a caution message.
+markdown: GFM 
+plugins:
+- jekyll-gfm-admonitions
+
+exclude: 
+  - "**/*.ts" # Exclude source code files!
+  - "**/*.js"
+  - "*.ts" # Also those in the root directory!
+  - "*.js"
+  - "*.json" # Don't forget about assets!
+  - node_modules/ # And large vendored directories
+```
 
 > [!CAUTION]
 >
-> For private repositories, make sure you exclude your source code files from the Jekyll 
-> build! Also exclude large vendored package directories such as `node_modules/`.
-> See the configuration file below for examples
+> For private repositories, make sure you exclude your source code files from the Jekyll
+> build, or they might be publicly deployed! Also exclude large vendored package
+> directories such as `node_modules/`.
 
-After following the steps you will have to set up a minimal valid Jekyll project:
+### Add a `Gemfile`:
 
-1. Add `_config.yml`:
+```ruby
+source 'https://rubygems.org'
+ 
+gem 'jekyll'
+group :jekyll_plugins do
+  gem 'jekyll-gfm-admonitions', '~> 0.2.1'
+  gem 'github-pages'
+end
+gem 'jekyll-remote-theme'
+```
 
-   ```yaml
-   # Site settings
-   title: YouProjectName
-   repository: your-username/your-repository
-   description: >-
-     A description of your project
+### Add [front matter](https://jekyllrb.com/docs/front-matter/)
 
-   markdown: GFM 
-   plugins:
-   - jekyll-gfm-admonitions
-   
-   exclude: 
-     - "**/*.ts" # Exclude source code files!
-     - "**/*.js"
-     - "*.ts" # Also those in the root directory!
-     - "*.js"
-     - "*.json" # Don't forget about assets!
-     - node_modules/ # And large vendored directories
-   ```
+Make sure that all your `.md` files begin with a valid front matter header:
 
-2. Add a `Gemfile`:
+```markdown
+---
+---
 
-   ```ruby
-   source 'https://rubygems.org'
-    
-   gem 'jekyll'
-   group :jekyll_plugins do
-     gem 'jekyll-gfm-admonitions', '~> 0.2.1'
-     gem 'github-pages'
-   end
-   gem 'jekyll-remote-theme'
-   ```
-
-3. Make sure that all your `.md` files contain [front matter](https://jekyllrb.com/docs/front-matter/):
-
-   ```markdown
-   ---
-   ---
-   
-   Your markdown files should start like this.
-   ```
+Your markdown files should start like this.
+```
 
 ## License
 
