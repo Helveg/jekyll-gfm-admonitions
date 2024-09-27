@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    jekyll-gfm-admonitions (0.2.0)
+    jekyll-gfm-admonitions (0.2.1)
       cssminify (~> 1.0)
       jekyll (~> 3.0)
       octicons (~> 19.11)
