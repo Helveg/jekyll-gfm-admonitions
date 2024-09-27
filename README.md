@@ -1,7 +1,4 @@
 ---
-
-permalink: /index.html
-
 ---
 
 # GitHub Flavored Admonitions
