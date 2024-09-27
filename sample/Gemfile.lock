@@ -1,9 +1,8 @@
 PATH
   remote: ..
   specs:
-    github-flavored-admonitions (0.1.0)
+    jekyll-gfm-admonitions (0.1.0)
       jekyll (~> 3.0)
-      jekyll-commonmark (~> 1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -280,9 +279,9 @@ PLATFORMS
 
 DEPENDENCIES
   cssminify
-  github-flavored-admonitions!
   github-pages
   jekyll
+  jekyll-gfm-admonitions!
   jekyll-remote-theme
   octicons
 

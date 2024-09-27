@@ -11,16 +11,16 @@ ADMONITION_ICONS = {
   'caution' => 'stop'
 }.freeze
 
-# GfmAdmonitions is a module that provides functionality to process and
+# JekyllGFMAdmonitions is a module that provides functionality to process and
 # convert GitHub-flavored markdown admonitions into HTML within Jekyll.
-module GfmAdmonitions
-  # GfmAdmonitionConverter is a Jekyll generator that converts custom
-  # admonition blocks in markdown (e.g., `[!IMPORTANT]`) into styled HTML
+module JekyllGFMAdmonitions
+  # GFMAdmonitionConverter is a Jekyll generator that converts custom
+  # admonition blocks in markdown (e.g., `> [!IMPORTANT]`) into styled HTML
   # alert boxes with icons.
   #
   # This generator processes both posts and pages, replacing admonition
   # syntax with HTML markup that includes appropriate iconography and CSS styling.
-  class GfmAdmonitionConverter < Jekyll::Generator
+  class GFMAdmonitionConverter < Jekyll::Generator
     safe true
 
     def generate(site)
