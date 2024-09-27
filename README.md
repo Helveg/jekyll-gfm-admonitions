@@ -92,6 +92,15 @@ Actions (GHA) to build and deploy your Jekyll site. For detailed instructions on
 up GitHub Actions for your Jekyll project, please follow this link: 
 [GitHub Actions Setup for Jekyll](https://jekyllrb.com/docs/continuous-integration/github-actions/).
 
+
+> [!CAUTION]
+> This is a caution message.
+
+
+> [!CAUTION]
+> 
+> This is a caution message.
+
 > [!CAUTION]
 >
 > For private repositories, make sure you exclude your source code files from the Jekyll 
