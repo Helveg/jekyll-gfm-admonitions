@@ -2,6 +2,7 @@
 
 require 'octicons'
 require 'cssminify'
+require 'liquid/template'
 
 ADMONITION_ICONS = {
   'important' => 'report',
@@ -22,6 +23,7 @@ module JekyllGFMAdmonitions
   # syntax with HTML markup that includes appropriate iconography and CSS styling.
   class GFMAdmonitionConverter < Jekyll::Generator
     safe true
+    @@admonition_pages = []
 
     def initialize(*args)
       super(*args)
@@ -29,13 +31,21 @@ module JekyllGFMAdmonitions
     end
 
     def generate(site)
+      @markdown = site.converters.find { |c| c.is_a?(Jekyll::Converters::Markdown) }
+      unless @markdown
+        raise "Markdown converter not found. Please ensure that you have a markdown converter configured in your Jekyll site."
+      end
+
       # Process admonitions in posts
       site.posts.docs.each do |doc|
+        Jekyll.logger.debug 'GFMA:', "Processing post '#{doc.path}' (#{doc.content.length} characters)."
         process(doc)
       end
 
       # Process admonitions in pages
       site.pages.each do |page|
+        Jekyll.logger.debug 'GFMA:', "Processing page '#{page.path}' (#{page.content.length} characters)."
+        Jekyll.logger.debug 'GFMA:', "#{page.content.inspect}"
         process(page)
       end
 
@@ -48,8 +58,12 @@ module JekyllGFMAdmonitions
 
       return unless doc.content != original_content
 
-      inject_css(doc)
+      @@admonition_pages << doc
       @converted += 1
+    end
+
+    def self.admonition_pages
+      return @@admonition_pages
     end
 
     def convert_admonitions(doc)
@@ -58,17 +72,24 @@ module JekyllGFMAdmonitions
         title = type.capitalize
         text = ::Regexp.last_match(2).gsub(/^>\s*/, '').strip
         icon = Octicons::Octicon.new(ADMONITION_ICONS[type]).to_svg
+        Jekyll.logger.debug 'GFMA:', "Converting #{type} admonition."
 
         "<div class='markdown-alert markdown-alert-#{type}'>
           <p class='markdown-alert-title'>#{icon} #{title}</p>
-          <p>#{text}</p>
+          <p>#{@markdown.convert(text)}</p>
         </div>"
       end
     end
+  end
 
-    def inject_css(doc)
+  Jekyll::Hooks.register :site, :post_render do |site|
+    Jekyll.logger.info 'GFMA:', "Injecting admonition CSS in #{GFMAdmonitionConverter.admonition_pages.length} page(s)."
+
+    for page in GFMAdmonitionConverter.admonition_pages do
+      Jekyll.logger.debug 'GFMA:', "Appending admonition style to '#{page.path}'."
       css = File.read(File.expand_path('../assets/admonitions.css', __dir__))
-      doc.content += "<style>#{CSSminify.compress(css)}</style>"
+
+      page.output += "<style>#{CSSminify.compress(css)}</style>"
     end
   end
 end
