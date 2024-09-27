@@ -165,12 +165,10 @@ Your markdown files should start like this.
 
 > [!IMPORTANT]
 > 
-> Your root `README.md` front matter should contain a `permalink` attribute:
+> Your root `README.md` front matter should contain the following `permalink` attribute:
 > ```yaml
 > permalink: /index.html
 > ```
-
-Link to nested [README](./lib/README.md)
 
 ## License
 

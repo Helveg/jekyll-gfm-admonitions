@@ -66,6 +66,12 @@ module JekyllGFMAdmonitions
     end
 
     def convert_admonitions(doc)
+      code_blocks = []
+      doc.content.gsub!(/```.*?```/m) do |match|
+        code_blocks << match
+        "```{{CODE_BLOCK_#{code_blocks.length - 1}}}```"
+      end
+
       doc.content.gsub!(/>\s*\[!(IMPORTANT|NOTE|WARNING|TIP|CAUTION)\]\s*\n((?:>.*\n?)*)/) do
         type = ::Regexp.last_match(1).downcase
         title = type.capitalize
@@ -77,6 +83,10 @@ module JekyllGFMAdmonitions
           <p class='markdown-alert-title'>#{icon} #{title}</p>
           <p>#{@markdown.convert(text)}</p>
         </div>\n\n"
+      end
+
+      doc.content.gsub!(/```\{\{CODE_BLOCK_(\d+)}}```/) do
+        "```#{code_blocks[$1.to_i]}```"
       end
     end
   end
