@@ -117,6 +117,16 @@ exclude:
   - "*.js"
   - "*.json" # Don't forget about assets!
   - node_modules/ # And large vendored directories
+  # And these ignore all the artifacts the build produces:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
 ```
 
 > [!CAUTION]
