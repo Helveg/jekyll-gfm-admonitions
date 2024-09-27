@@ -79,11 +79,14 @@ plugins:
   - jekyll-gfm-admonitions
 ```
 
-Then, during build/serve, you should see a log similar to:
+Then, during `build`/`serve`, you should see logs similar to:
 
 ```
-GFMA: Converted adminitions in 1 file(s).
+GFMA: Converted adminitions in 36 file(s).
+GFMA: Injecting admonition CSS in 36 page(s).
 ```
+
+More details are available by passing the `--verbose` flag to your `jekyll` command.
 
 ## When using GitHub Pages
 

@@ -45,7 +45,6 @@ module JekyllGFMAdmonitions
       # Process admonitions in pages
       site.pages.each do |page|
         Jekyll.logger.debug 'GFMA:', "Processing page '#{page.path}' (#{page.content.length} characters)."
-        Jekyll.logger.debug 'GFMA:', "#{page.content.inspect}"
         process(page)
       end
 
