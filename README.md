@@ -92,6 +92,12 @@ Actions (GHA) to build and deploy your Jekyll site. For detailed instructions on
 up GitHub Actions for your Jekyll project, please follow this link: 
 [GitHub Actions Setup for Jekyll](https://jekyllrb.com/docs/continuous-integration/github-actions/).
 
+> [!CAUTION]
+>
+> For private repositories, make sure you exclude your source code files from the Jekyll 
+> build! Also exclude large vendored package directories such as `node_modules/`.
+> See the configuration file below for examples
+
 After following the steps you will have to set up a minimal valid Jekyll project:
 
 1. Add `_config.yml`:
@@ -107,15 +113,14 @@ After following the steps you will have to set up a minimal valid Jekyll project
    plugins:
    - jekyll-gfm-admonitions
    
-   exclude:
-     - SEE NOTE
+   exclude: 
+     - "**/*.ts" # Exclude source code files!
+     - "**/*.js"
+     - "*.ts" # Also those in the root directory!
+     - "*.js"
+     - "*.json" # Don't forget about assets!
+     - node_modules/ # And large vendored directories
    ```
-   
-   > [!CAUTION]
-   >
-   > For private repositories, make sure you exclude your source code files, or Jekyll may
-   > include them in the output! Also exclude large vendored package directories such as
-   > `node_modules/`.
 
 2. Add a `Gemfile`:
 
@@ -136,7 +141,7 @@ After following the steps you will have to set up a minimal valid Jekyll project
    ---
    ---
    
-   # Jekyll only processes files with front matter
+   Your markdown files should start like this.
    ```
 
 ## License
