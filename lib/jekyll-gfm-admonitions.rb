@@ -23,6 +23,11 @@ module JekyllGFMAdmonitions
   class GFMAdmonitionConverter < Jekyll::Generator
     safe true
 
+    def initialize(*args)
+      super(*args)
+      @converted = 0
+    end
+
     def generate(site)
       # Process admonitions in posts
       site.posts.docs.each do |doc|
@@ -33,6 +38,8 @@ module JekyllGFMAdmonitions
       site.pages.each do |page|
         process(page)
       end
+
+      Jekyll.logger.info 'GFMA:', "Converted adminitions in #{@converted} file(s)."
     end
 
     def process(doc)
@@ -42,6 +49,7 @@ module JekyllGFMAdmonitions
       return unless doc.content != original_content
 
       inject_css(doc)
+      @converted += 1
     end
 
     def convert_admonitions(doc)
@@ -61,7 +69,6 @@ module JekyllGFMAdmonitions
     def inject_css(doc)
       css = File.read(File.expand_path('../assets/admonitions.css', __dir__))
       doc.content += "<style>#{CSSminify.compress(css)}</style>"
-      Jekyll.logger.info 'GfmAdmonitions:', "Converted adminitions for: #{doc.path}"
     end
   end
 end
