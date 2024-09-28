@@ -160,9 +160,9 @@ gem 'jekyll-remote-theme'
 
 ### Add [front matter](https://jekyllrb.com/docs/front-matter/)
 
-This step is optional if you've added `jekyll-front-matter`. If you do not, any file
-without a front matter header will be ignored by Jekyll, and only partially included by
-the GitHub Pages plugin.
+This step is optional if you've added `jekyll-optional-front-matter`. If you do not, any
+file without a front matter header will be ignored by Jekyll. They will still be included
+by the GitHub Pages plugin, but this plugin won't be able to convert the admonitions.
 
 Make sure that all your `.md` files begin with a valid front matter header:
 
