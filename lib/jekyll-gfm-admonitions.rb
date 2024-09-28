@@ -73,7 +73,7 @@ module JekyllGFMAdmonitions
 
     def convert_admonitions(doc)
       code_blocks = []
-      doc.content.gsub!(/```.*?```/m) do |match|
+      doc.content.gsub!(/(?:^|\n)(?<!>)\s*```.*?```/m) do |match|
         code_blocks << match
         "```{{CODE_BLOCK_#{code_blocks.length - 1}}}```"
       end
@@ -92,7 +92,7 @@ module JekyllGFMAdmonitions
       end
 
       doc.content.gsub!(/```\{\{CODE_BLOCK_(\d+)}}```/) do
-        "```#{code_blocks[$1.to_i]}```"
+        code_blocks[$1.to_i]
       end
     end
   end
