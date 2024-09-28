@@ -1,7 +1,0 @@
----
----
-
-# Hello?
-
-> [!NOTE]
-> Come on
