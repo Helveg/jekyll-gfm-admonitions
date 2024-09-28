@@ -18,8 +18,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.required_ruby_version = '>= 2.7.0'
-  spec.add_dependency 'jekyll', '~> 3.0'
   spec.add_dependency 'cssminify', '~> 1.0'
+  spec.add_dependency 'jekyll', '~> 3.0'
   spec.add_dependency 'octicons', '~> 19.11'
   spec.add_development_dependency 'bundler', '~> 2.0'
 end

@@ -61,15 +61,8 @@ group :jekyll_plugins do
    
    # ... Add this line:
    gem "jekyll-gfm-admonitions"
-   gem "jekyll-optional-front-matter"
 end
 ```
-
-> [!TIP]
-> 
-> By installing `jekyll-optional-front-matter` alongside this package, you won't need to
-> add ([visible](https://github.com/github/markup/issues/994)) frontmatter headers to each
-> of your files.
 
 Then run:
 
@@ -84,7 +77,6 @@ Next, you need to enable the plugin in your Jekyll configuration file (`_config.
 ```yaml
 plugins:
   - jekyll-gfm-admonitions
-  - jekyll-optional-front-matter
 ```
 
 Then, during `build`/`serve`, you should see logs similar to:
@@ -156,21 +148,6 @@ group :jekyll_plugins do
   gem 'github-pages'
 end
 gem 'jekyll-remote-theme'
-```
-
-### Add [front matter](https://jekyllrb.com/docs/front-matter/)
-
-This step is optional if you've added `jekyll-optional-front-matter`. If you do not, any
-file without a front matter header will be ignored by Jekyll. They will still be included
-by the GitHub Pages plugin, but this plugin won't be able to convert the admonitions.
-
-Make sure that all your `.md` files begin with a valid front matter header:
-
-```markdown
----
----
-
-Your markdown files should start like this.
 ```
 
 ## License
