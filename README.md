@@ -8,47 +8,50 @@ blocks for notes, warnings, tips, cautions, and important messages.
 
 The following admonitions are supported:
 
-- **Important**: `> [!IMPORTANT]`
-- **Note**: `> [!NOTE]`
-- **Tip**: `> [!TIP]`
-- **Warning**: `> [!WARNING]`
-- **Caution**: `> [!CAUTION]`
+| **Type**      | **Markdown**          |
+|---------------|-----------------------|
+| Note          | `> [!NOTE]`           |
+| Tip           | `> [!TIP]`            |
+| Important     | `> [!IMPORTANT]`      |
+| Warning       | `> [!WARNING]`        |
+| Caution       | `> [!CAUTION]`        |
+
 
 ### Example Usage
 
 To use admonitions in your markdown files, simply add the following syntax:
 
 ```markdown
-> [!IMPORTANT]
-> This is an **important** message.
-
-> [!NOTE]
-> This is a **note**.
+> [!NOTE]  
+> Highlights information that users should take into account, even when skimming.
 
 > [!TIP]
-> This is a **helpful** tip.
+> Optional information to help a user be more successful.
 
-> [!WARNING]
-> This is a **warning**.
+> [!IMPORTANT]  
+> Crucial information necessary for users to succeed.
+
+> [!WARNING]  
+> Critical content demanding immediate user attention due to potential risks.
 
 > [!CAUTION]
-> This is a **caution** message.
+> Negative potential consequences of an action.
 ```
 
-> [!IMPORTANT]
-> This is an **important** message.
-
-> [!NOTE]
-> This is a **note**.
+> [!NOTE]  
+> Highlights information that users should take into account, even when skimming.
 
 > [!TIP]
-> This is a **helpful** tip.
+> Optional information to help a user be more successful.
 
-> [!WARNING]
-> This is a **warning**.
+> [!IMPORTANT]  
+> Crucial information necessary for users to succeed.
+
+> [!WARNING]  
+> Critical content demanding immediate user attention due to potential risks.
 
 > [!CAUTION]
-> This is a **caution** message.
+> Negative potential consequences of an action.
 
 ## Installation
 
