@@ -26,6 +26,11 @@ module JekyllGFMAdmonitions
     priority :lowest
     @admonition_pages = []
 
+    class << self
+      attr_reader :admonition_pages
+    end
+
+
     def generate(site)
       init_converter(site)
       process_posts(site)
@@ -65,10 +70,6 @@ module JekyllGFMAdmonitions
       # Store a reference to all the pages we modified, to inject the CSS post render
       # (otherwise GitHub Pages sanitizes the CSS into plaintext)
       self.class.admonition_pages << doc
-    end
-
-    class << self
-      attr_reader :admonition_pages
     end
 
     def process_doc(doc)
