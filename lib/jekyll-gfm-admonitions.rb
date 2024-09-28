@@ -32,6 +32,22 @@ module JekyllGFMAdmonitions
     end
 
     def generate(site)
+      puts "STATIC FILES"
+      site.static_files.each do |file|
+        puts "#{file.instance_variable_get(:@dir)}#{file.instance_variable_get(:@relative_path)}"
+      end
+
+      puts "PAGES"
+      site.pages.each do |file|
+        puts "#{file.instance_variable_get(:@path)}"
+        puts "#{file.instance_variable_get(:@dir)}/#{file.instance_variable_get(:@basename)}"
+      end
+
+      puts "POSTS"
+      site.posts.docs.each do |file|
+        puts "#{file.instance_variable_get(:@dir)}#{file.instance_variable_get(:@relative_path)}"
+      end
+
       @markdown = site.converters.find { |c| c.is_a?(Jekyll::Converters::Markdown) }
       unless @markdown
         raise "Markdown converter not found. Please ensure that you have a markdown converter configured in your Jekyll site."
