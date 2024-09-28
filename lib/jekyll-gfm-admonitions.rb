@@ -97,14 +97,17 @@ module JekyllGFMAdmonitions
     end
   end
 
-  Jekyll::Hooks.register :site, :post_render do |site|
+  Jekyll::Hooks.register :site, :post_render do
     Jekyll.logger.info 'GFMA:', "Injecting admonition CSS in #{GFMAdmonitionConverter.admonition_pages.length} page(s)."
 
-    for page in GFMAdmonitionConverter.admonition_pages do
+    GFMAdmonitionConverter.admonition_pages.each do |page|
       Jekyll.logger.debug 'GFMA:', "Appending admonition style to '#{page.path}'."
       css = File.read(File.expand_path('../assets/admonitions.css', __dir__))
 
-      page.output += "<style>#{CSSminify.compress(css)}</style>"
+      page.output.gsub!(/<head>(.*?)<\/head>/m) do |match|
+        # Insert the minified CSS before the closing head tag
+        "#{match[0..-7]}<style>#{CSSminify.compress(css)}</style>#{match[-7..-1]}"
+      end
     end
   end
 end
