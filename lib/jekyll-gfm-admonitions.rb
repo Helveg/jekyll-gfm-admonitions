@@ -23,6 +23,7 @@ module JekyllGFMAdmonitions
   # syntax with HTML markup that includes appropriate iconography and CSS styling.
   class GFMAdmonitionConverter < Jekyll::Generator
     safe true
+    priority :lowest
     @@admonition_pages = []
 
     def initialize(*args)

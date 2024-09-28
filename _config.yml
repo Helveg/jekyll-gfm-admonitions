@@ -5,8 +5,8 @@ description: >-
 
 markdown: GFM
 plugins:
-  - jekyll-gfm-admonitions
   - jekyll-optional-front-matter
+  - jekyll-gfm-admonitions
 
 include:
   - README.md
