@@ -1,6 +1,3 @@
----
----
-
 # GitHub Flavored Admonitions
 
 A Jekyll plugin to render GitHub-flavored admonitions in your Jekyll sites.

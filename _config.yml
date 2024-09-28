@@ -6,7 +6,10 @@ description: >-
 markdown: GFM
 plugins:
   - jekyll-gfm-admonitions
+  - jekyll-optional-front-matter
 
+include:
+  - README.md
 exclude:
   - sample/
   - .sass-cache/
