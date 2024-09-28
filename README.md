@@ -60,9 +60,16 @@ group :jekyll_plugins do
    # Other plugins go here ...
    
    # ... Add this line:
-   gem "jekyll-gfm-admonitions", "~> 1.0.0"
+   gem "jekyll-gfm-admonitions"
+   gem "jekyll-optional-front-matter"
 end
 ```
+
+> [!TIP]
+> 
+> By installing `jekyll-optional-front-matter` alongside this package, you won't need to
+> add ([visible](https://github.com/github/markup/issues/994)) frontmatter headers to each
+> of your files.
 
 Then run:
 
@@ -77,6 +84,7 @@ Next, you need to enable the plugin in your Jekyll configuration file (`_config.
 ```yaml
 plugins:
   - jekyll-gfm-admonitions
+  - jekyll-optional-front-matter
 ```
 
 Then, during `build`/`serve`, you should see logs similar to:
@@ -101,7 +109,7 @@ After following the steps you will have to set up a minimal valid Jekyll project
 
 ```yaml
 # Site settings
-title: YouProjectName
+title: Your Project Title
 repository: your-username/your-repository
 description: >-
   A description of your project
@@ -109,6 +117,7 @@ description: >-
 markdown: GFM 
 plugins:
 - jekyll-gfm-admonitions
+- jekyll-optional-front-matter
 
 exclude: 
   - "**/*.ts" # Exclude source code files!
@@ -142,13 +151,18 @@ source 'https://rubygems.org'
  
 gem 'jekyll'
 group :jekyll_plugins do
-  gem 'jekyll-gfm-admonitions', '~> 1.0.0'
+  gem 'jekyll-gfm-admonitions'
+  gem 'jekyll-optional-front-matter'
   gem 'github-pages'
 end
 gem 'jekyll-remote-theme'
 ```
 
 ### Add [front matter](https://jekyllrb.com/docs/front-matter/)
+
+This step is optional if you've added `jekyll-front-matter`. If you do not, any file
+without a front matter header will be ignored by Jekyll, and only partially included by
+the GitHub Pages plugin.
 
 Make sure that all your `.md` files begin with a valid front matter header:
 
