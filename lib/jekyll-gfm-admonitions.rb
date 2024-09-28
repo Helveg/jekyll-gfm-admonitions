@@ -50,6 +50,7 @@ module JekyllGFMAdmonitions
           Jekyll.logger.info 'GFMA:', "Patched /README.html to /index.html"
           page.instance_variable_set(:@url, '/index.html')
         end
+
         Jekyll.logger.debug 'GFMA:', "Processing page '#{page.path}' (#{page.content.length} characters)."
         process(page)
       end
@@ -62,7 +63,8 @@ module JekyllGFMAdmonitions
       convert_admonitions(doc)
 
       return unless doc.content != original_content
-
+      # Store a reference to all the pages we modified, to inject the CSS post render
+      # (otherwise GitHub Pages sanitizes the CSS into plaintext)
       @@admonition_pages << doc
       @converted += 1
     end
@@ -73,11 +75,14 @@ module JekyllGFMAdmonitions
 
     def convert_admonitions(doc)
       code_blocks = []
+      # Temporarily replace code blocks by a tag, so that we don't process any admonitions
+      # inside of code blocks.
       doc.content.gsub!(/(?:^|\n)(?<!>)\s*```.*?```/m) do |match|
         code_blocks << match
         "```{{CODE_BLOCK_#{code_blocks.length - 1}}}```"
       end
 
+      # Match the admonition syntax
       doc.content.gsub!(/>\s*\[!(IMPORTANT|NOTE|WARNING|TIP|CAUTION)\]\s*\n((?:>.*\n?)*)/) do
         type = ::Regexp.last_match(1).downcase
         title = type.capitalize
@@ -85,27 +90,29 @@ module JekyllGFMAdmonitions
         icon = Octicons::Octicon.new(ADMONITION_ICONS[type]).to_svg
         Jekyll.logger.debug 'GFMA:', "Converting #{type} admonition."
 
+        # Replace them by the GFM admonition HTML
         "<div class='markdown-alert markdown-alert-#{type}'>
           <p class='markdown-alert-title'>#{icon} #{title}</p>
           <p>#{@markdown.convert(text)}</p>
         </div>\n\n"
       end
 
+      # Put the code blocks back in place
       doc.content.gsub!(/```\{\{CODE_BLOCK_(\d+)}}```/) do
         code_blocks[$1.to_i]
       end
     end
   end
 
+  # Insert the minified CSS before the closing head tag of all pages we put admonitions on
   Jekyll::Hooks.register :site, :post_render do
-    Jekyll.logger.info 'GFMA:', "Injecting admonition CSS in #{GFMAdmonitionConverter.admonition_pages.length} page(s)."
+    Jekyll.logger.info 'GFMA:', "Inserting admonition CSS in #{GFMAdmonitionConverter.admonition_pages.length} page(s)."
 
     GFMAdmonitionConverter.admonition_pages.each do |page|
       Jekyll.logger.debug 'GFMA:', "Appending admonition style to '#{page.path}'."
       css = File.read(File.expand_path('../assets/admonitions.css', __dir__))
 
       page.output.gsub!(/<head>(.*?)<\/head>/m) do |match|
-        # Insert the minified CSS before the closing head tag
         "#{match[0..-7]}<style>#{CSSminify.compress(css)}</style>#{match[-7..-1]}"
       end
     end
