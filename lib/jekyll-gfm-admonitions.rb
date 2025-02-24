@@ -73,6 +73,9 @@ module JekyllGFMAdmonitions
     end
 
     def process_doc(doc)
+      # If the content is frozen, we need to duplicate it so that we can modify it
+      doc.content = doc.content.dup unless doc.content.frozen?
+
       code_blocks = []
       # Temporarily replace code blocks by a tag, so that we don't process any admonitions
       # inside of code blocks.
