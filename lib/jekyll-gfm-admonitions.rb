@@ -73,6 +73,9 @@ module JekyllGFMAdmonitions
     end
 
     def process_doc(doc)
+      # Return early if content is empty
+      return if doc.content.empty?
+
       # If the content is frozen, we need to duplicate it so that we can modify it
       doc.content = doc.content.dup unless doc.content.frozen?
 
