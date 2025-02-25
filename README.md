@@ -42,8 +42,9 @@ To use admonitions in your markdown files, simply add the following syntax:
 > [!WARNING]  
 > Critical content demanding immediate user attention due to potential risks.
 
-> [!CAUTION]
-> Negative potential consequences of an action.
+  > [!CAUTION]
+  > Negative potential consequences of an action.
+  > Opportunity to provide more context.
 ```
 
 > [!NOTE]
@@ -59,8 +60,9 @@ To use admonitions in your markdown files, simply add the following syntax:
 > [!WARNING]  
 > Critical content demanding immediate user attention due to potential risks.
 
-> [!CAUTION]
-> Negative potential consequences of an action.
+  > [!CAUTION]
+  > Negative potential consequences of an action.
+  > Opportunity to provide more context.
 
 #### Custom titles
 

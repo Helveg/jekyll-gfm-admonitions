@@ -96,7 +96,7 @@ module JekyllGFMAdmonitions
     end
 
     def convert_admonitions(doc)
-      doc.content.gsub!(/^>\s*\[!(IMPORTANT|NOTE|WARNING|TIP|CAUTION)\]([^\n]*)\n((?:>.*\n?)*)/) do
+      doc.content.gsub!(/^\s*>\s*\[!(IMPORTANT|NOTE|WARNING|TIP|CAUTION)\]([^\n]*)\n((?:\s*>\s*[^\n]*(?:\n|$))(?:(?!\s*>\s*\[!)\s*>\s*[^\n]*(?:\n|$))*)/) do
         type = ::Regexp.last_match(1).downcase
         if ::Regexp.last_match(2).strip.length > 0
           title = ::Regexp.last_match(2).strip
@@ -107,7 +107,8 @@ module JekyllGFMAdmonitions
         icon = Octicons::Octicon.new(ADMONITION_ICONS[type]).to_svg
         Jekyll.logger.debug 'GFMA:', "Converting #{type} admonition."
 
-        admonition_html(type, title, text, icon)
+        text_with_breaks = text.chomp.gsub(/\n/, "  \n")  # Remove trailing newline and add two spaces before remaining newlines
+        admonition_html(type, title, text_with_breaks, icon)
       end
     end
 
