@@ -96,27 +96,31 @@ module JekyllGFMAdmonitions
     end
 
     def convert_admonitions(doc)
-      doc.content.gsub!(/^\s*>\s*\[!(IMPORTANT|NOTE|WARNING|TIP|CAUTION)\]([^\n]*)\n((?:\s*>\s*[^\n]*(?:\n|$))(?:(?!\s*>\s*\[!)\s*>\s*[^\n]*(?:\n|$))*)/) do
-        type = ::Regexp.last_match(1).downcase
-        if ::Regexp.last_match(2).strip.length > 0
-          title = ::Regexp.last_match(2).strip
+      doc.content.gsub!(/^(\s*)>\s*\[!(IMPORTANT|NOTE|WARNING|TIP|CAUTION)\]([^\n]*)\n((?:\1\s*>\s*[^\n]*(?:\n|$))(?:(?!\s*>\s*\[!)\1\s*>\s*[^\n]*(?:\n|$))*)/) do
+        initial_indent = ::Regexp.last_match(1)
+        type = ::Regexp.last_match(2).downcase
+        if ::Regexp.last_match(3).strip.length > 0
+          title = ::Regexp.last_match(3).strip
         else
           title = type.capitalize
         end
-        text = ::Regexp.last_match(3).gsub(/^>\s*/, '').strip
+        
+        # Remove the consistent indentation and blockquote markers from each line
+        text = ::Regexp.last_match(4).gsub(/^#{Regexp.escape(initial_indent)}\s*>\s*/, '').strip
+        
         icon = Octicons::Octicon.new(ADMONITION_ICONS[type]).to_svg
         Jekyll.logger.debug 'GFMA:', "Converting #{type} admonition."
 
-        text_with_breaks = text.chomp.gsub(/\n/, "  \n")  # Remove trailing newline and add two spaces before remaining newlines
+        text_with_breaks = text.chomp.gsub(/\n/, "  \n")
         admonition_html(type, title, text_with_breaks, icon)
       end
     end
 
     def admonition_html(type, title, text, icon)
-      "<div class='markdown-alert markdown-alert-#{type}'>
-          <p class='markdown-alert-title'>#{icon} #{title}</p>
-          <p>#{@markdown.convert(text)}</p>
-        </div>\n\n"
+      "<div class='markdown-alert markdown-alert-#{type}'>" \
+        "<p class='markdown-alert-title'>#{icon} #{title}</p>" \
+        "#{@markdown.convert(text)}" \
+      "</div>"
     end
   end
 
