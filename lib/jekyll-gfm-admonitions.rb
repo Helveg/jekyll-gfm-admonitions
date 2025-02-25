@@ -99,21 +99,16 @@ module JekyllGFMAdmonitions
       doc.content.gsub!(/^(\s*)>\s*\[!(IMPORTANT|NOTE|WARNING|TIP|CAUTION)\]([^\n]*)\n((?:\1\s*>\s*[^\n]*(?:\n|$))(?:(?!\s*>\s*\[!)\1\s*>\s*[^\n]*(?:\n|$))*)/) do
         initial_indent = ::Regexp.last_match(1)
         type = ::Regexp.last_match(2).downcase
-        if ::Regexp.last_match(3).strip.length > 0
-          title = ::Regexp.last_match(3).strip
-        else
-          title = type.capitalize
-        end
-        
-        # Remove the consistent indentation and blockquote markers from each line
+        title = ::Regexp.last_match(3).strip.empty? ? type.capitalize : ::Regexp.last_match(3).strip
         text = ::Regexp.last_match(4).gsub(/^#{Regexp.escape(initial_indent)}\s*>\s*/, '').strip
-        
-        icon = Octicons::Octicon.new(ADMONITION_ICONS[type]).to_svg
-        Jekyll.logger.debug 'GFMA:', "Converting #{type} admonition."
 
+        icon = Octicons::Octicon.new(ADMONITION_ICONS[type]).to_svg
         text_with_breaks = text.chomp.gsub(/\n/, "  \n")
         admonition_html(type, title, text_with_breaks, icon)
       end
+
+      # 🛠 Ensure a blank line exists after each admonition block to prevent Markdown parsing issues.
+      doc.content.gsub!(/(<\/div>)(?!\n\n)/, "\\1\n\n")
     end
 
     def admonition_html(type, title, text, icon)
