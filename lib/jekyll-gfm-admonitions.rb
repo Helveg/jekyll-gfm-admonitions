@@ -96,7 +96,7 @@ module JekyllGFMAdmonitions
     end
 
     def convert_admonitions(doc)
-      doc.content.gsub!(/>\s*\[!(IMPORTANT|NOTE|WARNING|TIP|CAUTION)\]([^\n]*)\n((?:>.*\n?)*)/) do
+      doc.content.gsub!(/^>\s*\[!(IMPORTANT|NOTE|WARNING|TIP|CAUTION)\]([^\n]*)\n((?:>.*\n?)*)/) do
         type = ::Regexp.last_match(1).downcase
         if ::Regexp.last_match(2).strip.length > 0
           title = ::Regexp.last_match(2).strip

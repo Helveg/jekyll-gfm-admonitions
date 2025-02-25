@@ -29,8 +29,9 @@ The following admonitions are supported:
 To use admonitions in your markdown files, simply add the following syntax:
 
 ```markdown
-> [!NOTE]  
+> [!NOTE]
 > Highlights information that users should take into account, even when skimming.
+> And supports multi-line text.
 
 > [!TIP]
 > Optional information to help a user be more successful.
@@ -45,8 +46,9 @@ To use admonitions in your markdown files, simply add the following syntax:
 > Negative potential consequences of an action.
 ```
 
-> [!NOTE]  
+> [!NOTE]
 > Highlights information that users should take into account, even when skimming.
+> And supports multi-line text.
 
 > [!TIP]
 > Optional information to help a user be more successful.
