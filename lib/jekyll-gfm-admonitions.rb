@@ -103,8 +103,7 @@ module JekyllGFMAdmonitions
         text = ::Regexp.last_match(4).gsub(/^#{Regexp.escape(initial_indent)}\s*>\s*/, '').strip
 
         icon = Octicons::Octicon.new(ADMONITION_ICONS[type]).to_svg
-        text_with_breaks = text.chomp.gsub(/\n/, "  \n")
-        admonition_html(type, title, text_with_breaks, icon)
+        admonition_html(type, title, text, icon)
       end
 
       # 🛠 Ensure a blank line exists after each admonition block to prevent Markdown parsing issues.
