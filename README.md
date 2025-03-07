@@ -70,12 +70,20 @@ To use admonitions in your markdown files, simply add the following syntax:
 
 Custom admonition titles are supported:
 
+```markdown
+> [!TIP] My own title
+> Fancy!
+```
+
 > [!TIP] My own title
 > Fancy!
 
 > [!NOTE]
-> GFM itself does not support this syntax, so this will only wokr in your
-> build output, but not on your GitHub rendered READMEs etc.
+> GFM itself does not support this syntax, so this will only work in your
+> [build output](https://helveg.github.io/jekyll-gfm-admonitions/#custom-titles),
+> but not on your
+> [GitHub rendered README](https://github.com/Helveg/jekyll-gfm-admonitions/blob/main/README.md#custom-titles)s
+> etc.
 
 
 ## Installation
