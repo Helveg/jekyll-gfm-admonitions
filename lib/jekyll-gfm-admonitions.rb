@@ -35,7 +35,7 @@ module JekyllGFMAdmonitions
       init_converter(site)
       process_posts(site)
       process_pages(site)
-      Jekyll.logger.info 'GFMA:', 'Converted adminitions in' \
+      Jekyll.logger.info 'GFMA:', 'Converted admonitions in' \
         " #{self.class.admonition_pages.length} file(s)."
     end
 
