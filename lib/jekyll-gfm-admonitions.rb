@@ -33,7 +33,7 @@ module JekyllGFMAdmonitions
 
     def generate(site)
       init_converter(site)
-      process_posts(site)
+      process_collections(site)
       process_pages(site)
       Jekyll.logger.info 'GFMA:', 'Converted admonitions in' \
         " #{self.class.admonition_pages.length} file(s)."
@@ -47,10 +47,12 @@ module JekyllGFMAdmonitions
               ' converter configured in your Jekyll site.'
     end
 
-    def process_posts(site)
-      site.posts.docs.each do |doc|
-        Jekyll.logger.debug 'GFMA:', "Processing post '#{doc.path}' (#{doc.content.length} characters)."
-        process_doc_content(doc)
+    def process_collections(site)
+      site.collections.each do |name, collection|
+        collection.docs.each do |doc|
+          Jekyll.logger.debug 'GFMA:', "Processing collection '#{name}' document '#{doc.path}' (#{doc.content.length} characters)."
+          process_doc_content(doc)
+        end
       end
     end
 
