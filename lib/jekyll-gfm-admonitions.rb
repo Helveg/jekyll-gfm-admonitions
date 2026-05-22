@@ -137,7 +137,11 @@ module JekyllGFMAdmonitions
         initial_indent = ::Regexp.last_match(1)
         type = ::Regexp.last_match(2).downcase
         title = ::Regexp.last_match(3).strip.empty? ? type.capitalize : ::Regexp.last_match(3).strip
-        text = ::Regexp.last_match(4).gsub(/^#{Regexp.escape(initial_indent)}[^\S\n]*>[^\S\n]*/, '').strip
+        # Strip the blockquote prefix from each line. Per CommonMark, a `>`
+        # marker consumes at most ONE following space, so we only remove a
+        # single space here. Consuming all whitespace would flatten the
+        # indentation that distinguishes nested list items (see issue #20).
+        text = ::Regexp.last_match(4).gsub(/^#{Regexp.escape(initial_indent)}[^\S\n]*>[^\S\n]?/, '').strip
 
         icon = Octicons::Octicon.new(ADMONITION_ICONS[type]).to_svg
         html = admonition_html(type, title, text, icon)
