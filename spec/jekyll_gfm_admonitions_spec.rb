@@ -184,6 +184,49 @@ RSpec.describe JekyllGFMAdmonitions::GFMAdmonitionConverter do
       expect(doc.content).to include('line one')
       expect(doc.content).to include('line two')
     end
+
+    # Regression test for issue #20: nested (second-hierarchy) bullet points
+    # inside an admonition were flattened to the first hierarchy because the
+    # blockquote-stripping regex consumed *all* whitespace after `>` instead of
+    # the single space a `>` marker is allowed to consume.
+    it 'preserves nested list indentation when stripping blockquote markers' do
+      received = nil
+      allow(markdown_converter).to receive(:convert) do |text|
+        received = text
+        "<p>#{text}</p>"
+      end
+      doc = doc_with(
+        "> [!NOTE]\n" \
+        "> Some text\n" \
+        "> - `templates/`\n" \
+        ">   - `generateBuilders.mustache`\n" \
+        ">   - `pojo.mustache`\n"
+      )
+      converter.send(:convert_admonitions, doc)
+      expect(received).to eq(
+        "Some text\n" \
+        "- `templates/`\n" \
+        "  - `generateBuilders.mustache`\n" \
+        "  - `pojo.mustache`"
+      )
+    end
+
+    it 'preserves nested list indentation for admonitions inside list items' do
+      received = nil
+      allow(markdown_converter).to receive(:convert) do |text|
+        received = text
+        "<p>#{text}</p>"
+      end
+      # 3-space indent (e.g. inside an ordered list item) before the `>` marker.
+      doc = doc_with(
+        "1. item\n\n" \
+        "   > [!NOTE]\n" \
+        "   > - parent\n" \
+        "   >   - child\n"
+      )
+      converter.send(:convert_admonitions, doc)
+      expect(received).to eq("- parent\n  - child")
+    end
   end
 
   # -----------------------------------------------------------------------
