@@ -63,6 +63,25 @@ RSpec.describe JekyllGFMAdmonitions::GFMAdmonitionConverter do
     end
 
     # -----------------------------------------------------------------------
+    # Case-insensitive tags (issue #23) — GitHub treats [!note], [!WarnIng]
+    # the same as their uppercase forms.
+    # -----------------------------------------------------------------------
+
+    {
+      'note' => 'note',
+      'WarnIng' => 'warning',
+      'Tip' => 'tip',
+      'iMpOrTaNt' => 'important',
+      'caution' => 'caution'
+    }.each do |tag, type|
+      it "renders the mixed/lower-case tag [!#{tag}] as a #{type} admonition" do
+        doc = doc_with("> [!#{tag}]\n> body\n")
+        converter.send(:process_doc, doc)
+        expect(doc.content).to include("markdown-alert-#{type}")
+      end
+    end
+
+    # -----------------------------------------------------------------------
     # Code blocks are restored exactly
     # -----------------------------------------------------------------------
 

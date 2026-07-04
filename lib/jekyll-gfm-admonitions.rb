@@ -133,7 +133,7 @@ module JekyllGFMAdmonitions
     end
 
     def convert_admonitions(doc)
-      doc.content.gsub!(/^([^\S\n]*)>[^\S\n]*\[!(IMPORTANT|NOTE|WARNING|TIP|CAUTION)\]([^\n]*)\n((?:\1[^\S\n]*>[^\S\n]*[^\n]*(?:\n|$))(?:(?![^\S\n]*>[^\S\n]*\[!)\1[^\S\n]*>[^\S\n]*[^\n]*(?:\n|$))*)/) do
+      doc.content.gsub!(/^([^\S\n]*)>[^\S\n]*\[!(IMPORTANT|NOTE|WARNING|TIP|CAUTION)\]([^\n]*)\n((?:\1[^\S\n]*>[^\S\n]*[^\n]*(?:\n|$))(?:(?![^\S\n]*>[^\S\n]*\[!)\1[^\S\n]*>[^\S\n]*[^\n]*(?:\n|$))*)/i) do
         initial_indent = ::Regexp.last_match(1)
         type = ::Regexp.last_match(2).downcase
         title = ::Regexp.last_match(3).strip.empty? ? type.capitalize : ::Regexp.last_match(3).strip
