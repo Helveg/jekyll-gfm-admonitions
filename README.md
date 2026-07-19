@@ -58,11 +58,6 @@ Custom admonition titles are also supported:
 > Fancy!
 ```
 
-```markdown
-> [!TIP] My own title
-> Fancy!
-```
-
 > [!TIP] My own title
 > Fancy!
 
